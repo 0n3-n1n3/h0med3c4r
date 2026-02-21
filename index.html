@@ -115,6 +115,95 @@
         }
     </style>
 </head>
+<script>
+
+const API =
+"https://script.google.com/macros/s/YOURID/exec";
+
+
+// Read URL ID
+
+const params =
+new URLSearchParams(window.location.search);
+
+const selectedID =
+params.get("id");
+
+
+fetch(API)
+
+.then(r=>r.json())
+
+.then(products=>{
+
+
+const grid =
+document.querySelector(".grid");
+
+grid.innerHTML="";
+
+
+let topCard="";
+let otherCards="";
+
+
+products.forEach(p=>{
+
+
+let img=p.Image;
+
+if(img==""){
+
+img="https://via.placeholder.com/300";
+
+}
+
+
+let card=`
+
+<div class="glass-card rounded-xl p-4">
+
+<img src="${img}" class="rounded mb-3">
+
+<h3>${p.Name}</h3>
+
+<p>#ID-${p.ID}</p>
+
+<a href="${p.Link}" target="_blank">
+
+<button class="w-full bg-primary/20 py-3">
+
+Buy Now
+
+</button>
+
+</a>
+
+</div>
+
+`;
+
+
+if(p.ID==selectedID){
+
+topCard=card;
+
+}else{
+
+otherCards+=card;
+
+}
+
+});
+
+
+grid.innerHTML=
+topCard+otherCards;
+
+
+});
+
+</script>
 <body class="bg-background-dark text-slate-100 selection:bg-primary/30">
 <!-- Background Animated Elements -->
 <div class="fixed inset-0 overflow-hidden pointer-events-none">
