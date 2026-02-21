@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Liquid Midnight | Product Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00e5ff",
+                        "secondary": "#7b1fa2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#000000",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #000000;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 229, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .liquid-blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #7b1fa2 0%, transparent 70%);
+            top: -100px;
+            left: -100px;
+        }
+
+        .blob-2 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #00e5ff 0%, transparent 70%);
+            bottom: -200px;
+            right: -100px;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #7b1fa2 0%, transparent 70%);
+            top: 40%;
+            right: 10%;
+        }
+
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+
+        .status-dot {
+            box-shadow: 0 0 8px #00e5ff;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1a1a1a;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00e5ff;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-slate-100 selection:bg-primary/30">
+<!-- Background Animated Elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none">
+<div class="liquid-blob blob-1"></div>
+<div class="liquid-blob blob-2"></div>
+<div class="liquid-blob blob-3"></div>
+</div>
+<!-- Navigation -->
+<header class="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+<nav class="max-w-7xl mx-auto glass-panel rounded-xl px-8 py-3 flex items-center justify-between">
+<div class="flex items-center gap-2 group cursor-pointer">
+<span class="material-symbols-outlined text-primary text-3xl">water_drop</span>
+<span class="text-xl font-bold tracking-tighter uppercase">h0med3c0r</span>
+</div>
+</nav>
+</header>
+<main class="relative pt-32 pb-20 px-6">
+<div class="max-w-7xl mx-auto">
+<!-- Hero Section -->
+<section class="flex flex-col items-center justify-center min-h-[50vh] text-center mb-32" id="heroSection">
+<div class="max-w-2xl">
+<h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tighter uppercase leading-none">
+                        Experience <span class="text-primary italic">The Fluid</span> Home
+                    </h1>
+
+<div class="flex flex-wrap justify-center gap-4">
+<button class="glass-panel border-primary hover:bg-primary/10 px-8 py-4 rounded-lg flex items-center gap-2 group transition-all">
+<span class="font-bold tracking-widest uppercase">Enter Portal</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+
+<!-- Featured Product Section -->
+<section class="mb-32" id="featuredSection" style="display:none;">
+<h2 class="text-3xl font-bold tracking-tight uppercase mb-8">Featured Product</h2>
+<div class="glass-card rounded-xl p-8 group">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="relative aspect-square overflow-hidden rounded-lg">
+<img id="featuredImage" alt="Featured Product" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src=""/>
+<div class="absolute top-3 right-3 glass-panel rounded-full px-2 py-1 flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-primary status-dot"></div>
+<span class="text-[10px] font-bold uppercase tracking-widest" id="featuredStatus">Active</span>
+</div>
+</div>
+<div class="flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-bold text-2xl tracking-tight uppercase" id="featuredName">Loading...</h3>
+<span class="text-xs text-primary font-mono" id="featuredId">#ID-0000</span>
+</div>
+<p class="text-slate-300 text-sm mb-6" id="featuredDesc">Loading product details...</p>
+</div>
+<button class="w-full bg-primary hover:bg-primary/80 text-black py-4 rounded-lg font-bold text-sm uppercase tracking-widest transition-all">
+                                Access Full Product
+                            </button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Affiliated Products Section -->
+<section class="mb-32" id="affiliatedSection" style="display:none;">
+<div class="flex items-end justify-between mb-12">
+<div>
+<h2 class="text-3xl font-bold tracking-tight uppercase mb-2">Affiliated Products</h2>
+<p class="text-slate-500 tracking-wide">Explore related items</p>
+</div>
+<div class="hidden md:block h-[1px] flex-1 mx-12 bg-gradient-to-r from-primary/30 to-transparent"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="affiliatedGrid">
+<!-- Products will be loaded here -->
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="border-t border-white/5 py-12 px-6 bg-black/50 backdrop-blur-md">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex flex-col items-center md:items-start gap-2">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary">water_drop</span>
+<span class="text-lg font-bold uppercase tracking-tighter">h0med3c0r</span>
+</div>
+<p class="text-slate-600 text-sm">© If you buy from here, i owe you one</p>
+</div>
+<div class="flex gap-8 text-xs font-bold uppercase tracking-widest">
+<a class="text-slate-400 hover:text-primary transition-colors" href="https://www.pinterest.com/h0med3c0r">Pinterest</a>
+</div>
+<div class="flex items-center gap-3 glass-panel px-4 py-2 rounded-full">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse status-dot"></div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-slate-300">All Systems Operational</span>
+</div>
+</div>
+</footer>
+<!-- Implementation Note Overlay (For Design Context) -->
+<script>
+// Google Apps Script URL
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzp2qsHH708UIyTKcUa0o0HbIb6sxLaI1BH7Oam3sl0lNbujf7JDlZ3A6g87Yzz6Z3Q/exec';
+
+// Get product ID from URL parameters
+function getProductIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('productid');
+}
+
+// Fetch products from Google Sheet
+async function fetchProducts() {
+  try {
+    const response = await fetch(APPS_SCRIPT_URL);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return [];
+  }
+}
+
+// Display featured product
+function displayFeaturedProduct(product) {
+  const featuredSection = document.getElementById('featuredSection');
+  const heroSection = document.getElementById('heroSection');
+  
+  if (product) {
+    document.getElementById('featuredImage').src = product.image || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCH_rdPkfvjP1q9CpNwwBn5bSqTe2hpwZAqrzO1vH9vp1gCfyavq0q6spvlrnyemwj2zBC-xTjWYGhZvOSAMV34-mwJW9KTJpA0jzPCLUGKgIps5gh1qjFHaJ-UGZbNAKnY5O-_BPigcq224r35PUFP68IMIWspdw6PC_ODuU6cgk162DXC1mGvi2kUBk8D7jDe-e55gTGgyJrUIGZ3ku_FDKXGD0VtuQaCF7UN68TVNk9YgMBnAlLBLnLawf_DZWbCfUKIVMPvSdM';
+    document.getElementById('featuredName').textContent = product.name || 'Product Name';
+    document.getElementById('featuredId').textContent = product.id || '#ID-0000';
+    document.getElementById('featuredDesc').textContent = product.description || 'Product description';
+    document.getElementById('featuredStatus').textContent = product.status || 'Active';
+    
+    heroSection.style.display = 'none';
+    featuredSection.style.display = 'block';
+  }
+}
+
+// Display affiliated products
+function displayAffiliatedProducts(products, excludeProductId) {
+  const affiliatedSection = document.getElementById('affiliatedSection');
+  const affiliatedGrid = document.getElementById('affiliatedGrid');
+  
+  const filtered = products.filter(p => p.id !== excludeProductId);
+  
+  if (filtered.length > 0) {
+    affiliatedGrid.innerHTML = filtered.map(product => `
+      <div class="glass-card rounded-xl p-1 group">
+        <div class="relative aspect-square overflow-hidden rounded-lg mb-4">
+          <img alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="${product.image || 'https://via.placeholder.com/300'}"/>
+          <div class="absolute top-3 right-3 glass-panel rounded-full px-2 py-1 flex items-center gap-1.5">
+            <div class="w-2 h-2 rounded-full bg-primary status-dot"></div>
+            <span class="text-[10px] font-bold uppercase tracking-widest">${product.status || 'Active'}</span>
+          </div>
+        </div>
+        <div class="px-4 pb-4">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-bold text-lg tracking-tight uppercase">${product.name || 'Product'}</h3>
+            <span class="text-xs text-primary font-mono">${product.id || '#ID-0000'}</span>
+          </div>
+          <p class="text-slate-500 text-sm mb-6 line-clamp-2">${product.description || 'Product description'}</p>
+          <a href="?productid=${product.id}" class="w-full bg-primary/10 hover:bg-primary text-primary hover:text-black py-3 rounded font-bold text-xs uppercase tracking-widest transition-all block text-center">
+            View Product
+          </a>
+        </div>
+      </div>
+    `).join('');
+    
+    affiliatedSection.style.display = 'block';
+  }
+}
+
+// Initialize page
+async function initializePage() {
+  const productId = getProductIdFromURL();
+  const products = await fetchProducts();
+  
+  if (productId && products.length > 0) {
+    const featured = products.find(p => String(p.id) === String(productId));
+    
+    if (featured) {
+      displayFeaturedProduct(featured);
+      displayAffiliatedProducts(products, productId);
+    } else {
+      // Product not found, show all products
+      displayAffiliatedProducts(products);
+    }
+  } else if (products.length > 0) {
+    // No product ID specified, show all products as affiliated
+    displayAffiliatedProducts(products);
+  }
+}
+
+// Run when page loads
+document.addEventListener('DOMContentLoaded', initializePage);
+</script>
+
+</body></html>
