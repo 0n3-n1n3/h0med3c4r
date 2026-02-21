@@ -115,95 +115,6 @@
         }
     </style>
 </head>
-<script>
-
-const API =
-"https://script.google.com/macros/s/YOURID/exec";
-
-
-// Read URL ID
-
-const params =
-new URLSearchParams(window.location.search);
-
-const selectedID =
-params.get("id");
-
-
-fetch(API)
-
-.then(r=>r.json())
-
-.then(products=>{
-
-
-const grid =
-document.querySelector(".grid");
-
-grid.innerHTML="";
-
-
-let topCard="";
-let otherCards="";
-
-
-products.forEach(p=>{
-
-
-let img=p.Image;
-
-if(img==""){
-
-img="https://via.placeholder.com/300";
-
-}
-
-
-let card=`
-
-<div class="glass-card rounded-xl p-4">
-
-<img src="${img}" class="rounded mb-3">
-
-<h3>${p.Name}</h3>
-
-<p>#ID-${p.ID}</p>
-
-<a href="${p.Link}" target="_blank">
-
-<button class="w-full bg-primary/20 py-3">
-
-Buy Now
-
-</button>
-
-</a>
-
-</div>
-
-`;
-
-
-if(p.ID==selectedID){
-
-topCard=card;
-
-}else{
-
-otherCards+=card;
-
-}
-
-});
-
-
-grid.innerHTML=
-topCard+otherCards;
-
-
-});
-
-</script>
 <body class="bg-background-dark text-slate-100 selection:bg-primary/30">
 <!-- Background Animated Elements -->
 <div class="fixed inset-0 overflow-hidden pointer-events-none">
@@ -214,10 +125,10 @@ topCard+otherCards;
 <!-- Navigation -->
 <header class="fixed top-0 left-0 right-0 z-50 px-6 py-4">
 <nav class="max-w-7xl mx-auto glass-panel rounded-xl px-8 py-3 flex items-center justify-between">
-<div class="flex items-center gap-2 group cursor-pointer">
+<a href="/" class="flex items-center gap-2 group cursor-pointer hover:opacity-80 transition-opacity">
 <span class="material-symbols-outlined text-primary text-3xl">water_drop</span>
 <span class="text-xl font-bold tracking-tighter uppercase">h0med3c0r</span>
-</div>
+</a>
 </nav>
 </header>
 <main class="relative pt-32 pb-20 px-6">
@@ -230,37 +141,52 @@ topCard+otherCards;
                     </h1>
 
 <div class="flex flex-wrap justify-center gap-4">
-<button class="glass-panel border-primary hover:bg-primary/10 px-8 py-4 rounded-lg flex items-center gap-2 group transition-all">
-<span class="font-bold tracking-widest uppercase">Enter Portal</span>
+<a href="?view=catalogue" class="glass-panel border-primary hover:bg-primary/10 px-8 py-4 rounded-lg flex items-center gap-2 group transition-all cursor-pointer">
+<span class="font-bold tracking-widest uppercase">View Catalogue</span>
 <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-</button>
+</a>
 </div>
 </div>
 </section>
 
 <!-- Featured Product Section -->
 <section class="mb-32" id="featuredSection" style="display:none;">
-<h2 class="text-3xl font-bold tracking-tight uppercase mb-8">Featured Product</h2>
-<div class="glass-card rounded-xl p-8 group">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="relative aspect-square overflow-hidden rounded-lg">
-<img id="featuredImage" alt="Featured Product" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src=""/>
-<div class="absolute top-3 right-3 glass-panel rounded-full px-2 py-1 flex items-center gap-1.5">
-<div class="w-2 h-2 rounded-full bg-primary status-dot"></div>
-<span class="text-[10px] font-bold uppercase tracking-widest" id="featuredStatus">Active</span>
+<h2 class="text-3xl font-bold tracking-tight uppercase mb-8">Product Details</h2>
+<div class="glass-card rounded-xl p-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Product Image -->
+<div class="flex flex-col gap-4">
+<div class="relative aspect-square overflow-hidden rounded-lg glass-panel p-4">
+<img id="featuredImage" alt="Featured Product" class="w-full h-full object-contain" src=""/>
 </div>
 </div>
+<!-- Product Details -->
 <div class="flex flex-col justify-between">
 <div>
-<div class="flex justify-between items-start mb-4">
-<h3 class="font-bold text-2xl tracking-tight uppercase" id="featuredName">Loading...</h3>
-<span class="text-xs text-primary font-mono" id="featuredId">#ID-0000</span>
+<div class="mb-6">
+<span class="text-xs text-primary font-mono font-bold tracking-widest mb-2 inline-block">#ID-<span id="featuredIdNum">0000</span></span>
+<h1 class="font-bold text-4xl tracking-tight uppercase mt-3 mb-3" id="featuredName">Loading...</h1>
+<div class="flex items-center gap-3 mb-6">
+<div class="flex items-center gap-2 glass-panel px-3 py-1 rounded-full">
+<div class="w-2 h-2 rounded-full bg-primary status-dot"></div>
+<span class="text-xs font-bold uppercase tracking-widest">In Stock</span>
 </div>
-<p class="text-slate-300 text-sm mb-6" id="featuredDesc">Loading product details...</p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/80 text-black py-4 rounded-lg font-bold text-sm uppercase tracking-widest transition-all">
-                                Access Full Product
-                            </button>
+</div>
+<div class="mb-8">
+<h3 class="text-lg font-bold uppercase tracking-tight mb-3">About this product</h3>
+<p class="text-slate-300 text-base leading-relaxed" id="featuredDesc">Loading product details...</p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3">
+<a id="amazonLink" href="#" target="_blank" class="w-full bg-primary hover:bg-primary/80 text-black py-4 rounded-lg font-bold text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2 group">
+<span>View on Amazon</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">open_in_new</span>
+</a>
+<a href="/?view=catalogue" class="w-full bg-primary/10 hover:bg-primary/20 text-primary py-4 rounded-lg font-bold text-sm uppercase tracking-widest transition-all">
+Back to Catalogue
+</a>
 </div>
 </div>
 </div>
@@ -311,6 +237,51 @@ function getProductIdFromURL() {
   return params.get('productid');
 }
 
+// Convert Google Drive sharing link to direct image URL
+function convertGoogleDriveLink(driveLink) {
+  if (!driveLink) return null;
+  
+  // Format: https://drive.google.com/file/d/{FILE_ID}/view?usp=sharing
+  const fileIdMatch = driveLink.match(/\/d\/([a-zA-Z0-9-_]+)/);
+  if (fileIdMatch) {
+    const fileId = fileIdMatch[1];
+    // Use export=download instead of export=view for better image compatibility
+    return `https://drive.google.com/uc?export=download&id=${fileId}`;
+  }
+  
+  // If it's already a direct link, return as-is
+  return driveLink;
+}
+
+// Extract ASIN from Amazon link and get image URL
+function getAmazonImageUrl(amazonLink) {
+  if (!amazonLink) return null;
+  
+  // Extract ASIN from various Amazon URL formats
+  let asin = null;
+  
+  // Format: https://amzn.in/d/{ASIN}
+  const shortMatch = amazonLink.match(/amzn\.in\/d\/([a-zA-Z0-9]+)/);
+  if (shortMatch) {
+    asin = shortMatch[1];
+  }
+  
+  // Format: amazon.com/dp/{ASIN}
+  if (!asin) {
+    const dpMatch = amazonLink.match(/\/dp\/([a-zA-Z0-9]+)/);
+    if (dpMatch) {
+      asin = dpMatch[1];
+    }
+  }
+  
+  // If we found an ASIN, construct the image URL
+  if (asin) {
+    return `https://images-na.ssl-images-amazon.com/images/P/${asin}.jpg`;
+  }
+  
+  return null;
+}
+
 // Fetch products from Google Sheet
 async function fetchProducts() {
   try {
@@ -329,14 +300,41 @@ function displayFeaturedProduct(product) {
   const heroSection = document.getElementById('heroSection');
   
   if (product) {
-    document.getElementById('featuredImage').src = product.image || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCH_rdPkfvjP1q9CpNwwBn5bSqTe2hpwZAqrzO1vH9vp1gCfyavq0q6spvlrnyemwj2zBC-xTjWYGhZvOSAMV34-mwJW9KTJpA0jzPCLUGKgIps5gh1qjFHaJ-UGZbNAKnY5O-_BPigcq224r35PUFP68IMIWspdw6PC_ODuU6cgk162DXC1mGvi2kUBk8D7jDe-e55gTGgyJrUIGZ3ku_FDKXGD0VtuQaCF7UN68TVNk9YgMBnAlLBLnLawf_DZWbCfUKIVMPvSdM';
-    document.getElementById('featuredName').textContent = product.name || 'Product Name';
-    document.getElementById('featuredId').textContent = product.id || '#ID-0000';
-    document.getElementById('featuredDesc').textContent = product.description || 'Product description';
-    document.getElementById('featuredStatus').textContent = product.status || 'Active';
+    // Get image - use Image field (Google Drive link) and convert to direct URL
+    let imageUrl = product.Image;
+    if (imageUrl && imageUrl.trim() !== '') {
+      // Convert Google Drive link to direct access URL
+      imageUrl = convertGoogleDriveLink(imageUrl);
+    } else {
+      // Fallback if no image provided
+      imageUrl = 'https://via.placeholder.com/400?text=' + encodeURIComponent(product.Name);
+    }
+    
+    document.getElementById('featuredImage').src = imageUrl;
+    
+    // Set product name
+    document.getElementById('featuredName').textContent = product.Name || 'Product Name';
+    
+    // Set product ID
+    document.getElementById('featuredIdNum').textContent = product.Id;
+    
+    // Set description
+    document.getElementById('featuredDesc').textContent = `${product.Name} - Available on Amazon. Click the button below to view and purchase this product.`;
+    
+    // Set Amazon link
+    const amazonLink = document.getElementById('amazonLink');
+    if (product.Link) {
+      amazonLink.href = product.Link;
+    } else {
+      amazonLink.style.opacity = '0.5';
+      amazonLink.style.pointerEvents = 'none';
+    }
     
     heroSection.style.display = 'none';
     featuredSection.style.display = 'block';
+    
+    // Scroll to featured product
+    featuredSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
@@ -345,53 +343,121 @@ function displayAffiliatedProducts(products, excludeProductId) {
   const affiliatedSection = document.getElementById('affiliatedSection');
   const affiliatedGrid = document.getElementById('affiliatedGrid');
   
-  const filtered = products.filter(p => p.id !== excludeProductId);
+  const filtered = products.filter(p => p.Id !== excludeProductId);
   
   if (filtered.length > 0) {
-    affiliatedGrid.innerHTML = filtered.map(product => `
+    affiliatedGrid.innerHTML = filtered.map(product => {
+      let imgUrl = product.Image;
+      if (imgUrl && imgUrl.trim() !== '') {
+        // Convert Google Drive link to direct URL
+        imgUrl = convertGoogleDriveLink(imgUrl);
+      } else {
+        imgUrl = 'https://via.placeholder.com/300?text=' + encodeURIComponent(product.Name);
+      }
+      
+      return `
       <div class="glass-card rounded-xl p-1 group">
-        <div class="relative aspect-square overflow-hidden rounded-lg mb-4">
-          <img alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="${product.image || 'https://via.placeholder.com/300'}"/>
+        <div class="relative aspect-square overflow-hidden rounded-lg mb-4 bg-black/50 flex items-center justify-center">
+          <img alt="${product.Name}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" src="${imgUrl}"/>
           <div class="absolute top-3 right-3 glass-panel rounded-full px-2 py-1 flex items-center gap-1.5">
             <div class="w-2 h-2 rounded-full bg-primary status-dot"></div>
-            <span class="text-[10px] font-bold uppercase tracking-widest">${product.status || 'Active'}</span>
+            <span class="text-[10px] font-bold uppercase tracking-widest">Available</span>
           </div>
         </div>
         <div class="px-4 pb-4">
           <div class="flex justify-between items-start mb-2">
-            <h3 class="font-bold text-lg tracking-tight uppercase">${product.name || 'Product'}</h3>
-            <span class="text-xs text-primary font-mono">${product.id || '#ID-0000'}</span>
+            <h3 class="font-bold text-lg tracking-tight uppercase">${product.Name || 'Product'}</h3>
+            <span class="text-xs text-primary font-mono">#ID-${product.Id}</span>
           </div>
-          <p class="text-slate-500 text-sm mb-6 line-clamp-2">${product.description || 'Product description'}</p>
-          <a href="?productid=${product.id}" class="w-full bg-primary/10 hover:bg-primary text-primary hover:text-black py-3 rounded font-bold text-xs uppercase tracking-widest transition-all block text-center">
+          <p class="text-slate-500 text-sm mb-6 line-clamp-2">${product.Name}</p>
+          <a href="?productid=${product.Id}" class="w-full bg-primary/10 hover:bg-primary text-primary hover:text-black py-3 rounded font-bold text-xs uppercase tracking-widest transition-all block text-center">
             View Product
           </a>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
     
     affiliatedSection.style.display = 'block';
+  }
+}// Display catalogue view with 5 columns
+function displayCatalogueView(products) {
+  const heroSection = document.getElementById('heroSection');
+  const featuredSection = document.getElementById('featuredSection');
+  const affiliatedSection = document.getElementById('affiliatedSection');
+  
+  heroSection.style.display = 'none';
+  featuredSection.style.display = 'none';
+  affiliatedSection.style.display = 'block';
+  
+  const heading = affiliatedSection.querySelector('h2');
+  heading.textContent = 'Complete Catalogue';
+  
+  const desc = affiliatedSection.querySelector('p');
+  desc.textContent = `Browse all ${products.length} available products`;
+  
+  const affiliatedGrid = document.getElementById('affiliatedGrid');
+  affiliatedGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6';
+  
+  if (products && products.length > 0) {
+    const html = products.map(product => {
+      let imgUrl = product.Image;
+      if (imgUrl && imgUrl.trim() !== '') {
+        imgUrl = convertGoogleDriveLink(imgUrl);
+      } else {
+        imgUrl = 'https://via.placeholder.com/300?text=' + encodeURIComponent(product.Name);
+      }
+      
+      return `<div class="glass-card rounded-xl p-1 group h-full flex flex-col">
+        <div class="relative aspect-square overflow-hidden rounded-lg mb-4 bg-black/50 flex items-center justify-center">
+          <img alt="${product.Name}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" src="${imgUrl}"/>
+          <div class="absolute top-3 right-3 glass-panel rounded-full px-2 py-1 flex items-center gap-1.5">
+            <div class="w-2 h-2 rounded-full bg-primary status-dot"></div>
+            <span class="text-[10px] font-bold uppercase tracking-widest">Stock</span>
+          </div>
+        </div>
+        <div class="px-4 pb-4 flex flex-col justify-between flex-grow">
+          <div>
+            <div class="flex justify-between items-start mb-2 gap-2">
+              <h3 class="font-bold text-base tracking-tight uppercase line-clamp-2">${product.Name || 'Product'}</h3>
+              <span class="text-xs text-primary font-mono whitespace-nowrap">#${product.Id}</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-4">${product.Name}</p>
+          </div>
+          <a href="?productid=${product.Id}" class="w-full bg-primary/10 hover:bg-primary text-primary hover:text-black py-2 rounded font-bold text-xs uppercase tracking-widest transition-all">
+            View Details
+          </a>
+        </div>
+      </div>`;
+    }).join('');
+    
+    affiliatedGrid.innerHTML = html;
+  } else {
+    affiliatedGrid.innerHTML = '<p class="col-span-full text-center text-slate-400">No products available</p>';
   }
 }
 
 // Initialize page
 async function initializePage() {
-  const productId = getProductIdFromURL();
+  const params = new URLSearchParams(window.location.search);
+  const viewMode = params.get('view');
+  const productId = params.get('productid');
   const products = await fetchProducts();
   
-  if (productId && products.length > 0) {
-    const featured = products.find(p => String(p.id) === String(productId));
+  console.log('Products fetched:', products.length);
+  console.log('View mode:', viewMode);
+  
+  if (viewMode === 'catalogue') {
+    displayCatalogueView(products || []);
+  } else if (productId && products.length > 0) {
+    const featured = products.find(p => String(p.Id) === String(productId));
     
     if (featured) {
       displayFeaturedProduct(featured);
-      displayAffiliatedProducts(products, productId);
+      displayAffiliatedProducts(products, parseInt(productId));
     } else {
-      // Product not found, show all products
       displayAffiliatedProducts(products);
     }
-  } else if (products.length > 0) {
-    // No product ID specified, show all products as affiliated
-    displayAffiliatedProducts(products);
   }
 }
 
